@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package service;
+
+option go_package = "/service";
+
+message Test{
+    string message = 1;
+    string firstquestion = 2;
+    string answersfirst = 3;
+    string secondquestion = 4;
+    string answerssecond = 5;
+    string thirdquestion = 6;
+    string answerthird = 7;
+}
+
+service Reverse {
+    rpc Do(Request) returns (Response) {};
+    rpc Get(TestRequest) returns (TestResponse) {};
+    rpc Answer(AnswerRequest) returns (AnswerResponse) {};
+}
+
+message Request {
+    string message = 1;
+}
+
+message Response {
+    string message = 1;
+}
+
+message TestRequest {
+    string message = 1;
+}
+
+message TestResponse {
+    Test message = 1;
+}
+
+message AnswerRequest {
+    string message = 1;
+}
+
+message AnswerResponse{
+    string message = 1;
+}
