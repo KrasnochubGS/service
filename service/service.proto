@@ -14,7 +14,7 @@ message Test{
     string answerthird = 7;
 }
 
-service Reverse {
+service service {
     rpc Do(Request) returns (Response) {};
     rpc Get(TestRequest) returns (TestResponse) {};
     rpc Answer(AnswerRequest) returns (AnswerResponse) {};

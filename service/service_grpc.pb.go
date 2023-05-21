@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.22.3
-// source: proto/service.proto
+// source: service/service.proto
 
-package service
+package __
 
 import (
 	context "context"
@@ -18,160 +18,160 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ReverseClient is the client API for Reverse service.
+// ServiceClient is the client API for Service service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ReverseClient interface {
+type ServiceClient interface {
 	Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 	Get(ctx context.Context, in *TestRequest, opts ...grpc.CallOption) (*TestResponse, error)
 	Answer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*AnswerResponse, error)
 }
 
-type reverseClient struct {
+type serviceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewReverseClient(cc grpc.ClientConnInterface) ReverseClient {
-	return &reverseClient{cc}
+func NewServiceClient(cc grpc.ClientConnInterface) ServiceClient {
+	return &serviceClient{cc}
 }
 
-func (c *reverseClient) Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (c *serviceClient) Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/service.Reverse/Do", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/service.service/Do", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *reverseClient) Get(ctx context.Context, in *TestRequest, opts ...grpc.CallOption) (*TestResponse, error) {
+func (c *serviceClient) Get(ctx context.Context, in *TestRequest, opts ...grpc.CallOption) (*TestResponse, error) {
 	out := new(TestResponse)
-	err := c.cc.Invoke(ctx, "/service.Reverse/Get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/service.service/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *reverseClient) Answer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*AnswerResponse, error) {
+func (c *serviceClient) Answer(ctx context.Context, in *AnswerRequest, opts ...grpc.CallOption) (*AnswerResponse, error) {
 	out := new(AnswerResponse)
-	err := c.cc.Invoke(ctx, "/service.Reverse/Answer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/service.service/Answer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ReverseServer is the server API for Reverse service.
-// All implementations must embed UnimplementedReverseServer
+// ServiceServer is the server API for Service service.
+// All implementations must embed UnimplementedServiceServer
 // for forward compatibility
-type ReverseServer interface {
+type ServiceServer interface {
 	Do(context.Context, *Request) (*Response, error)
 	Get(context.Context, *TestRequest) (*TestResponse, error)
 	Answer(context.Context, *AnswerRequest) (*AnswerResponse, error)
-	mustEmbedUnimplementedReverseServer()
+	mustEmbedUnimplementedServiceServer()
 }
 
-// UnimplementedReverseServer must be embedded to have forward compatible implementations.
-type UnimplementedReverseServer struct {
+// UnimplementedServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedServiceServer struct {
 }
 
-func (UnimplementedReverseServer) Do(context.Context, *Request) (*Response, error) {
+func (UnimplementedServiceServer) Do(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Do not implemented")
 }
-func (UnimplementedReverseServer) Get(context.Context, *TestRequest) (*TestResponse, error) {
+func (UnimplementedServiceServer) Get(context.Context, *TestRequest) (*TestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedReverseServer) Answer(context.Context, *AnswerRequest) (*AnswerResponse, error) {
+func (UnimplementedServiceServer) Answer(context.Context, *AnswerRequest) (*AnswerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Answer not implemented")
 }
-func (UnimplementedReverseServer) mustEmbedUnimplementedReverseServer() {}
+func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
 
-// UnsafeReverseServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ReverseServer will
+// UnsafeServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ServiceServer will
 // result in compilation errors.
-type UnsafeReverseServer interface {
-	mustEmbedUnimplementedReverseServer()
+type UnsafeServiceServer interface {
+	mustEmbedUnimplementedServiceServer()
 }
 
-func RegisterReverseServer(s grpc.ServiceRegistrar, srv ReverseServer) {
-	s.RegisterService(&Reverse_ServiceDesc, srv)
+func RegisterServiceServer(s grpc.ServiceRegistrar, srv ServiceServer) {
+	s.RegisterService(&Service_ServiceDesc, srv)
 }
 
-func _Reverse_Do_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Service_Do_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReverseServer).Do(ctx, in)
+		return srv.(ServiceServer).Do(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/service.Reverse/Do",
+		FullMethod: "/service.service/Do",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReverseServer).Do(ctx, req.(*Request))
+		return srv.(ServiceServer).Do(ctx, req.(*Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Reverse_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Service_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(TestRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReverseServer).Get(ctx, in)
+		return srv.(ServiceServer).Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/service.Reverse/Get",
+		FullMethod: "/service.service/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReverseServer).Get(ctx, req.(*TestRequest))
+		return srv.(ServiceServer).Get(ctx, req.(*TestRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Reverse_Answer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Service_Answer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AnswerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReverseServer).Answer(ctx, in)
+		return srv.(ServiceServer).Answer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/service.Reverse/Answer",
+		FullMethod: "/service.service/Answer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReverseServer).Answer(ctx, req.(*AnswerRequest))
+		return srv.(ServiceServer).Answer(ctx, req.(*AnswerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Reverse_ServiceDesc is the grpc.ServiceDesc for Reverse service.
+// Service_ServiceDesc is the grpc.ServiceDesc for Service service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Reverse_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "service.Reverse",
-	HandlerType: (*ReverseServer)(nil),
+var Service_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "service.service",
+	HandlerType: (*ServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Do",
-			Handler:    _Reverse_Do_Handler,
+			Handler:    _Service_Do_Handler,
 		},
 		{
 			MethodName: "Get",
-			Handler:    _Reverse_Get_Handler,
+			Handler:    _Service_Get_Handler,
 		},
 		{
 			MethodName: "Answer",
-			Handler:    _Reverse_Answer_Handler,
+			Handler:    _Service_Answer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/service.proto",
+	Metadata: "service/service.proto",
 }
