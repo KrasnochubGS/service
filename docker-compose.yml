@@ -36,3 +36,41 @@ services:
     networks:
       - default
 
+  service1:
+    build: ./
+    command: /docker-gs-ping
+    container_name: service1
+    ports:
+      - "8083:8082"
+      - "50052:50051"
+    networks:
+      - default
+
+  service2:
+    build: ./
+    command: /docker-gs-ping
+    container_name: service2
+    ports:
+      - "8084:8082"
+      - "50053:50051"
+    networks:
+      - default
+
+  
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - user_service
+      - user_service_repl1
+    networks:
+      - default
+
+
+
+
+
+
+

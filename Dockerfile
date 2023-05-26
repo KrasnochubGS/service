@@ -1,4 +1,4 @@
-FROM golang:1.20.3
+FROM golang:1.20.4
 
 WORKDIR /service
 
@@ -10,6 +10,7 @@ COPY . .
 
 RUN go build -o /docker-gs-ping
 
-EXPOSE 5300
+# EXPOSE 50051
 
+# CMD ["/docker-gs-ping"]
 CMD ["/docker-gs-ping"]
