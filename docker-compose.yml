@@ -63,8 +63,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - user_service
-      - user_service_repl1
+      - service1
+      - service2
     networks:
       - default
 
